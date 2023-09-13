@@ -16,10 +16,15 @@ public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idCategoria;
+    private Long idCategoria;
 
     @Column(unique = true)
     private String descricao;
 
     private boolean ativo;
+
+    public Categoria(DadosCadastrarCategoria dados) {
+        this.descricao = dados.descricao();
+        this.ativo = true;
+    }
 }

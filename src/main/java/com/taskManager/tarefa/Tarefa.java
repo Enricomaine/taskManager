@@ -20,7 +20,7 @@ public class Tarefa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idTarefa;
+    private Long idTarefa;
 
     @ManyToOne
     @JoinColumn(name = "idCategoria")

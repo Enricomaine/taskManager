@@ -1,12 +1,11 @@
 package com.taskManager.controller;
 
-import com.taskManager.categoria.Categoria;
-import com.taskManager.categoria.CategoriaRepository;
-import com.taskManager.categoria.DadosCadastrarCategoria;
-import com.taskManager.categoria.DadosListarCategorias;
+import com.taskManager.categoria.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("categoria")
@@ -22,7 +21,13 @@ public class CategoriaController {
     }
 
     @GetMapping
-    public void listar(DadosListarCategorias dados) {
-        System.out.println(repository.findAllByAtivoTrue(dados));
+    public List<DadosListarCategorias> listar() {
+        return repository.findAllByAtivoTrue().stream().map(DadosListarCategorias::new).toList();
+    }
+
+    @PutMapping
+    @Transactional
+    public void alterar(@RequestBody DadosAtualizaCategoria dados) {
+
     }
 }

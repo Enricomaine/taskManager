@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Optional;
+
 @Table(name = "categoria")
 @Entity(name = "categoria")
 @Getter
@@ -16,6 +18,7 @@ public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idcategoria")
     private Long idCategoria;
 
     @Column(unique = true)
@@ -27,4 +30,5 @@ public class Categoria {
         this.descricao = dados.descricao();
         this.ativo = true;
     }
+
 }

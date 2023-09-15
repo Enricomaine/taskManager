@@ -25,9 +25,17 @@ public class CategoriaController {
         return repository.findAllByAtivoTrue().stream().map(DadosListarCategorias::new).toList();
     }
 
-    @PutMapping
+    @PutMapping("/{idCategoria}")
     @Transactional
-    public void alterar(@RequestBody DadosAtualizaCategoria dados) {
+    public void alterar(@PathVariable Long idCategoria, @RequestBody DadosAtualizaCategoria dados) {
+        var categoria = repository.getReferenceById(idCategoria);
+        categoria.atualizaDados(dados);
+    }
 
+    @DeleteMapping("/{idCategoria}")
+    @Transactional
+    public void mudaAtivo(@PathVariable Long idCategoria) {
+        var categoria = repository.getReferenceById(idCategoria);
+        categoria.mudaAtivo();
     }
 }

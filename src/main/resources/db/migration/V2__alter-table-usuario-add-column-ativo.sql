@@ -1,0 +1,1 @@
+alter table usuario add column ativo boolean default true not null;

@@ -16,6 +16,7 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idusuario")
     private Long idUsuario;
 
     @Column(unique = true)
@@ -23,6 +24,25 @@ public class Usuario {
 
     private String senha;
 
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
+    private boolean ativo;
+
+    public Usuario(DadosCadastrarUsuario dados) {
+        this.username = dados.username();
+        this.senha = dados.senha();
+        this.role = dados.role();
+        this.ativo = true;
+    }
+
+    public void atualizaDados(DadosAtualizaUsuario dados) {
+        this.username = dados.username();
+        this.senha = dados.senha();
+        this.role = dados.role();
+    }
+
+    public void mudaAtivo() {
+        this.ativo = !this.ativo;
+    }
 }

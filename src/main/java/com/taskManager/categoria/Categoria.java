@@ -31,4 +31,11 @@ public class Categoria {
         this.ativo = true;
     }
 
+    public void atualizaDados(DadosAtualizaCategoria dados) {
+        this.descricao = dados.descricao();
+    }
+
+    public void mudaAtivo() {
+        this.ativo = !this.ativo;
+    }
 }

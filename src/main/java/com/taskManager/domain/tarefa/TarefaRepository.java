@@ -1,4 +1,4 @@
-package com.taskManager.tarefa;
+package com.taskManager.domain.tarefa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

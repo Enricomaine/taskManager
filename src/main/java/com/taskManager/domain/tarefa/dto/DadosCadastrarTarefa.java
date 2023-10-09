@@ -1,11 +1,6 @@
-package com.taskManager.tarefa;
+package com.taskManager.domain.tarefa.dto;
 
-import com.taskManager.categoria.Categoria;
-import com.taskManager.usuario.Usuario;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.taskManager.domain.tarefa.Status;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -17,11 +12,11 @@ public record DadosCadastrarTarefa(
         String titulo,
         String descricao,
         @NotBlank
-        Categoria idCategoria,
+        Long idcategoria,
         @NotNull
         Status status,
         LocalDateTime prazo,
         @NotBlank
-        Usuario idUsuario
+        Long idusuario
 ) {
 }

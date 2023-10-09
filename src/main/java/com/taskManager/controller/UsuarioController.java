@@ -1,8 +1,18 @@
 package com.taskManager.controller;
 
-import com.taskManager.categoria.*;
-import com.taskManager.usuario.*;
+import com.taskManager.domain.usuario.Roles;
+import com.taskManager.domain.usuario.Usuario;
+import com.taskManager.domain.usuario.UsuarioRepository;
+import com.taskManager.domain.usuario.dto.DadosAtualizaUsuario;
+import com.taskManager.domain.usuario.dto.DadosCadastrarUsuario;
+import com.taskManager.domain.usuario.dto.DadosListarUsuarios;
+import com.taskManager.domain.usuario.validacoes.ValidadorCadastroUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,31 +22,45 @@ import java.util.List;
 @RequestMapping("usuario")
 public class UsuarioController {
 
-    @Autowired
-    private UsuarioRepository repository;
+    @Autowired private UsuarioRepository repository;
+    @Autowired private List<ValidadorCadastroUsuario> validadorUsuario;
+    @Autowired private PasswordEncoder passwordEncoder;
 
     @PostMapping
     @Transactional
-    public void criar(@RequestBody DadosCadastrarUsuario dados) {
-        repository.save(new Usuario(dados));
+    public ResponseEntity criar(@RequestBody DadosCadastrarUsuario dados) {
+        validadorUsuario.forEach(v -> v.validar(dados));
+        var senhaCodificada = passwordEncoder.encode(dados.senha());
+
+
+        repository.save(new Usuario(dados, senhaCodificada));
+
+        return ResponseEntity.ok(dados);
     }
 
     @GetMapping
-    public List<DadosListarUsuarios> listar() {
-        return repository.findAllByAtivoTrue().stream().map(DadosListarUsuarios::new).toList();
+    public ResponseEntity<Page<DadosListarUsuarios>> listar(@PageableDefault Pageable paginacao) {
+        var page = repository.findAllByAtivoTrue(paginacao).map(DadosListarUsuarios::new);
+        return ResponseEntity.ok(page);
     }
 
-    @PutMapping("/{idUsuario}")
+    @PutMapping("/{idusuario}")
     @Transactional
-    public void alterar(@PathVariable Long idUsuario, @RequestBody DadosAtualizaUsuario dados) {
-        var usuario = repository.getReferenceById(idUsuario);
+    public ResponseEntity alterar(@PathVariable Long idusuario, @RequestBody DadosAtualizaUsuario dados) {
+        var usuario = repository.getReferenceById(idusuario);
+
+        validadorUsuario.forEach(v -> v.validar(dados));
         usuario.atualizaDados(dados);
+
+        return ResponseEntity.ok(dados);
     }
 
-    @DeleteMapping("/{idUsuario}")
+    @DeleteMapping("/{idusuario}")
     @Transactional
-    public void mudaAtivo(@PathVariable Long idUsuario) {
-        var usuario = repository.getReferenceById(idUsuario);
+    public ResponseEntity mudaAtivo(@PathVariable Long idusuario) {
+        var usuario = repository.getReferenceById(idusuario);
         usuario.mudaAtivo();
+
+        return ResponseEntity.noContent().build();
     }
 }

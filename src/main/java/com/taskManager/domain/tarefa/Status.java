@@ -1,4 +1,4 @@
-package com.taskManager.tarefa;
+package com.taskManager.domain.tarefa;
 
 public enum Status {
     aberto(1),

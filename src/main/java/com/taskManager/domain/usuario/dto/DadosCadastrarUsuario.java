@@ -1,5 +1,6 @@
-package com.taskManager.usuario;
+package com.taskManager.domain.usuario.dto;
 
+import com.taskManager.domain.usuario.Roles;
 import jakarta.validation.constraints.NotBlank;
 
 public record DadosCadastrarUsuario(
@@ -8,5 +9,5 @@ public record DadosCadastrarUsuario(
         @NotBlank
         String senha,
         @NotBlank
-        Role role) {
+        Roles role) {
 }

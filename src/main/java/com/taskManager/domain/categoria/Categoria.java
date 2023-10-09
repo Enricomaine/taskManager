@@ -1,25 +1,25 @@
-package com.taskManager.categoria;
+package com.taskManager.domain.categoria;
 
+import com.taskManager.domain.categoria.dto.DadosAtualizaCategoria;
+import com.taskManager.domain.categoria.dto.DadosCadastrarCategoria;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Optional;
-
 @Table(name = "categoria")
 @Entity(name = "categoria")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "idCategoria")
+@EqualsAndHashCode(of = "idcategoria")
 public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idcategoria")
-    private Long idCategoria;
+    private Long idcategoria;
 
     @Column(unique = true)
     private String descricao;

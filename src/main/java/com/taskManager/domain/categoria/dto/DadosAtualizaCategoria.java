@@ -1,4 +1,4 @@
-package com.taskManager.categoria;
+package com.taskManager.domain.categoria.dto;
 
 public record DadosAtualizaCategoria(String descricao) {
 }

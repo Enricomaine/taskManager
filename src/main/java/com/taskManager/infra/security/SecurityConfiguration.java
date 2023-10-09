@@ -31,8 +31,8 @@ public class SecurityConfiguration {
                     req.requestMatchers(HttpMethod.POST, "/login").permitAll();
                     req.requestMatchers(HttpMethod.POST, "/categoria", "/usuario").hasAuthority("admin");
                     req.requestMatchers(HttpMethod.GET, "/usuario", "/categoria", "/tarefa").permitAll();
-                    req.requestMatchers(HttpMethod.PUT, "/usuario/**", "/categoria/**").hasRole("admin");
-                    req.requestMatchers(HttpMethod.DELETE, "/usuario/**", "/categoria/**").hasRole("admin");
+                    req.requestMatchers(HttpMethod.PUT, "/usuario/**", "/categoria/**").hasAuthority("admin");
+                    req.requestMatchers(HttpMethod.DELETE, "/usuario/**", "/categoria/**").hasAuthority("admin");
                     req.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll();
                     req.anyRequest().authenticated();
                 })

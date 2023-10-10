@@ -4,6 +4,7 @@ import com.taskManager.domain.categoria.Categoria;
 import com.taskManager.domain.tarefa.dto.DadosAtualizaTarefa;
 import com.taskManager.domain.usuario.Usuario;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,6 +26,7 @@ public class Tarefa {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idcategoria")
+    @NotNull
     private Categoria categoria;
 
     private String titulo;

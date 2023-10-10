@@ -43,16 +43,16 @@ public class TarefaController {
     @PutMapping("/{idtarefa}")
     @Transactional
     public ResponseEntity alterar(@PathVariable Long idtarefa, @RequestBody DadosAtualizaTarefa dados) {
-        var categora = categoriaRepository.getReferenceById(dados.idcategoria());
+        var categoria = categoriaRepository.getReferenceById(dados.idcategoria());
         var tarefa = tarefaRepository.getReferenceById(idtarefa);
-        tarefa.atualizaDados(dados, categora);
+        tarefa.atualizaDados(dados, categoria);
 
         return ResponseEntity.ok(dados);
     }
 
     @DeleteMapping("/{idtarefa}")
     @Transactional
-    public ResponseEntity mudaAtivo(@PathVariable Long idtarefa) {
+    public ResponseEntity excluir(@PathVariable Long idtarefa) {
         tarefaRepository.deleteById(idtarefa);
         return ResponseEntity.noContent().build();
     }

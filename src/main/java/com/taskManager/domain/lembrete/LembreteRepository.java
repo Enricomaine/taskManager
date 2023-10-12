@@ -1,9 +1,11 @@
 package com.taskManager.domain.lembrete;
 
+import com.taskManager.domain.lembrete.dto.DadosLembreteEmail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -11,11 +13,17 @@ public interface LembreteRepository extends JpaRepository<Lembrete, Long> {
 
     @Query("""
             select
-                idtarefa,
-                descricao,
-                datahora_aviso
-            from lembrete
+            	l.tarefa.idtarefa,
+            	l.descricao,
+            	l.datahora_aviso,
+            	t.titulo,
+            	u.email
+            from
+            	lembrete l
+            	join tarefa t on t.idtarefa = l.tarefa.idtarefa
+            	join usuario u on t.usuario.idusuario = u.idusuario
             where
-                datahora_aviso between current_datetime and :periodoDeAnalise""")
-    List<Lembrete> findAllByDataEntreAgoraEDaquiAPouco(LocalDateTime periodoDeAnalise);
+            	datahora_aviso between current_timestamp and :periodoDeAnalise
+            """)
+    List<Object[]> findAllByDataEntreAgoraEDaquiAPouco(LocalDateTime periodoDeAnalise);
 }

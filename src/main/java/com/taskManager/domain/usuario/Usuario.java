@@ -34,6 +34,8 @@ public class Usuario implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Roles role;
 
+    private String email;
+
     private boolean ativo;
 
     public Usuario(DadosCadastrarUsuario dados, String senhaCodificada) {

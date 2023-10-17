@@ -1,5 +1,6 @@
 package com.taskManager.controller;
 
+import com.taskManager.domain.autenticacao.validacoes.ValidadorAutenticacao;
 import com.taskManager.domain.usuario.dto.DadosAutenticacao;
 import com.taskManager.domain.usuario.Usuario;
 import com.taskManager.infra.security.TokenService;
@@ -13,15 +14,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/login")
 public class AutenticacaoController {
 
     @Autowired private AuthenticationManager manager;
     @Autowired private TokenService tokenService;
+    @Autowired private List<ValidadorAutenticacao> validador;
 
     @PostMapping
     public ResponseEntity efetuarLogin(@RequestBody @Valid DadosAutenticacao dados) {
+        validador.forEach(v -> v.validar(dados));
         var autheticationToken = new UsernamePasswordAuthenticationToken(dados.username(), dados.senha());
         var authentication = this.manager.authenticate(autheticationToken);
         var tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal());

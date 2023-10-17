@@ -1,12 +1,14 @@
 package com.taskManager.controller;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.taskManager.domain.categoria.CategoriaRepository;
 import com.taskManager.domain.tarefa.CadastroTarefa;
 import com.taskManager.domain.tarefa.TarefaRepository;
 import com.taskManager.domain.tarefa.dto.DadosAtualizaTarefa;
 import com.taskManager.domain.tarefa.dto.DadosCadastrarTarefa;
 import com.taskManager.domain.tarefa.dto.DadosListarTarefas;
-import com.taskManager.domain.tarefa.validacoes.ValidadorCadastroTarefa;
+import com.taskManager.infra.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,8 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("tarefa")
 public class TarefaController {
@@ -24,12 +24,14 @@ public class TarefaController {
     @Autowired private CadastroTarefa cadastro;
     @Autowired private TarefaRepository tarefaRepository;
     @Autowired private CategoriaRepository categoriaRepository;
-
+    @Autowired private TokenService tokenService;
 
     @PostMapping
     @Transactional
-    public ResponseEntity criar(@RequestBody DadosCadastrarTarefa dados) {
-        cadastro.cadastrar(dados);
+    public ResponseEntity criar(@RequestBody DadosCadastrarTarefa dados, @RequestHeader("Authorization") String token) {
+        DecodedJWT decodedJWT = JWT.decode(token.replace("Bearer ", ""));
+        Long idusuario = decodedJWT.getClaim("idusuario").asLong();
+        cadastro.cadastrar(dados, idusuario);
 
         return ResponseEntity.ok(dados);
     }

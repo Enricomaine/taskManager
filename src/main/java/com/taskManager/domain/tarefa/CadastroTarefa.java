@@ -18,9 +18,9 @@ public class CadastroTarefa {
     @Autowired private UsuarioRepository usuarioRepository;
     @Autowired private List<ValidadorCadastroTarefa> validador;
 
-    public void cadastrar(DadosCadastrarTarefa dados) {
+    public void cadastrar(DadosCadastrarTarefa dados, Long idusuario) {
         var categoria = categoriaRepository.getReferenceById(dados.idcategoria());
-        var usuario = usuarioRepository.getReferenceById(dados.idusuario());
+        var usuario = usuarioRepository.getReferenceById(idusuario);
         var dataHoraAtual = LocalDateTime.now();
         var tarefa = new Tarefa(null, categoria, dados.titulo(), dados.descricao(), dados.status(), dados.prazo(), dataHoraAtual, usuario);
         validador.forEach(v -> v.validar(dados));

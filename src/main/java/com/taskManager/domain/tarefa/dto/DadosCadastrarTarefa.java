@@ -15,8 +15,6 @@ public record DadosCadastrarTarefa(
         Long idcategoria,
         @NotNull
         Status status,
-        LocalDateTime prazo,
-        @NotBlank
-        Long idusuario
+        LocalDateTime prazo
 ) {
 }

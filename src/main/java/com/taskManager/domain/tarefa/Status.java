@@ -5,9 +5,6 @@ public enum Status {
     finalizado(2),
     cancelado(3);
 
-    private final int numeroStatus;
-
     Status(int numeroStatus) {
-        this.numeroStatus = numeroStatus;
     }
 }

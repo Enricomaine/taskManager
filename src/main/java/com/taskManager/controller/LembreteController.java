@@ -5,8 +5,6 @@ import com.taskManager.domain.lembrete.dto.DadosAtualizaLembrete;
 import com.taskManager.domain.lembrete.dto.DadosCadastrarLembrete;
 import com.taskManager.domain.lembrete.LembreteRepository;
 import com.taskManager.domain.lembrete.dto.DadoslistarLembretes;
-import com.taskManager.domain.tarefa.TarefaRepository;
-import com.taskManager.domain.tarefa.dto.DadosListarTarefas;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 public class LembreteController {
 
     @Autowired private CadastroLembrete cadastro;
-    @Autowired private TarefaRepository tarefaRepository;
     @Autowired private LembreteRepository lembreteRepository;
 
 
@@ -43,8 +40,7 @@ public class LembreteController {
     @Transactional
     public ResponseEntity alterar(@PathVariable Long idlembrete, @RequestBody DadosAtualizaLembrete dados) {
         var lembrete = lembreteRepository.getReferenceById(idlembrete);
-        var tarefa = tarefaRepository.getReferenceById(dados.idtarefa());
-        lembrete.atualizaDados(dados, tarefa);
+        lembrete.atualizaDados(dados);
 
         return ResponseEntity.ok(dados);
     }

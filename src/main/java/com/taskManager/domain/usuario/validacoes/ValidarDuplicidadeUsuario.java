@@ -1,8 +1,5 @@
 package com.taskManager.domain.usuario.validacoes;
 
-import com.taskManager.domain.categoria.CategoriaRepository;
-import com.taskManager.domain.categoria.dto.DadosAtualizaCategoria;
-import com.taskManager.domain.categoria.dto.DadosCadastrarCategoria;
 import com.taskManager.domain.usuario.UsuarioRepository;
 import com.taskManager.domain.usuario.dto.DadosAtualizaUsuario;
 import com.taskManager.domain.usuario.dto.DadosCadastrarUsuario;

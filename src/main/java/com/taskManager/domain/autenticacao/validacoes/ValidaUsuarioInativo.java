@@ -1,6 +1,5 @@
 package com.taskManager.domain.autenticacao.validacoes;
 
-import com.taskManager.domain.tarefa.dto.DadosCadastrarTarefa;
 import com.taskManager.domain.usuario.UsuarioRepository;
 import com.taskManager.domain.usuario.dto.DadosAutenticacao;
 import com.taskManager.infra.exception.ValidacaoException;

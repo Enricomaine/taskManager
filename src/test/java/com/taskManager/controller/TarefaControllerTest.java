@@ -16,8 +16,6 @@ import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -53,7 +51,7 @@ class TarefaControllerTest {
     void criarTarefaCenario2() throws Exception {
         var dataPrazo = LocalDateTime.now().plusHours(1);
         var usuario = new Usuario(1L, "admin", "$2a$12$A6K1r5J6pTttM1jPECGt3eQGP6p55/eY8lNL.LWMBJ62II7sLGCZO", Roles.admin, null, true );
-        var token = "Bearer " + tokenService.gerarToken(usuario); // Substitua 'yourTokenGenerationMethod' com seu método de geração de token.
+        var token = "Bearer " + tokenService.gerarToken(usuario);
 
 
         var dados = new DadosCadastrarTarefa("teste Título", "teste Descrição", 1L, Status.aberto, dataPrazo);

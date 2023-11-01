@@ -1,6 +1,5 @@
 package com.taskManager.controller;
 
-import com.taskManager.domain.usuario.Roles;
 import com.taskManager.domain.usuario.Usuario;
 import com.taskManager.domain.usuario.UsuarioRepository;
 import com.taskManager.domain.usuario.dto.DadosAtualizaUsuario;

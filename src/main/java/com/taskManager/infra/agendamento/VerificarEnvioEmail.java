@@ -1,16 +1,12 @@
 package com.taskManager.infra.agendamento;
 
-import com.taskManager.domain.lembrete.Lembrete;
 import com.taskManager.domain.lembrete.LembreteRepository;
-import com.taskManager.domain.lembrete.dto.DadosLembreteEmail;
 import com.taskManager.infra.mail.EnvioEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Component

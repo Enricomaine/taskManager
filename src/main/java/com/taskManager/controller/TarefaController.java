@@ -8,7 +8,6 @@ import com.taskManager.domain.tarefa.TarefaRepository;
 import com.taskManager.domain.tarefa.dto.DadosAtualizaTarefa;
 import com.taskManager.domain.tarefa.dto.DadosCadastrarTarefa;
 import com.taskManager.domain.tarefa.dto.DadosListarTarefas;
-import com.taskManager.infra.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +23,6 @@ public class TarefaController {
     @Autowired private CadastroTarefa cadastro;
     @Autowired private TarefaRepository tarefaRepository;
     @Autowired private CategoriaRepository categoriaRepository;
-    @Autowired private TokenService tokenService;
 
     @PostMapping
     @Transactional

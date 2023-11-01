@@ -32,7 +32,7 @@ public class Lembrete {
     @NotNull
     private LocalDateTime datahora_aviso;
 
-    public void atualizaDados(DadosAtualizaLembrete dados, Tarefa tarefa) {
+    public void atualizaDados(DadosAtualizaLembrete dados) {
         this.tarefa = getTarefa();
         this.datahora_aviso = dados.datahora_aviso();
         this.descricao = dados.descricao();

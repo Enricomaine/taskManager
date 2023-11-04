@@ -36,6 +36,7 @@ class TarefaControllerTest {
     @Autowired private TokenService tokenService;
     @MockBean private CadastroTarefa cadastro;
 
+
     @Test
     @DisplayName("Retorna 400 quando dados são inválidos")
     @WithMockUser
@@ -54,7 +55,7 @@ class TarefaControllerTest {
         var token = "Bearer " + tokenService.gerarToken(usuario);
 
 
-        var dados = new DadosCadastrarTarefa("teste Título", "teste Descrição", 1L, Status.aberto, dataPrazo);
+        var dados = new DadosCadastrarTarefa("teste Titulo", "teste Descricao", 1L, Status.aberto, dataPrazo);
         doNothing().when(cadastro).cadastrar(any(DadosCadastrarTarefa.class), any(Long.class));
 
         var response = mvc.perform(post("/tarefa")
@@ -65,14 +66,11 @@ class TarefaControllerTest {
                 ).getJson())
         ).andReturn().getResponse();
 
-        var jsonEsperado = dadosCadastrarTarefaJson.write(
-                dados
-        ).getJson();
+        var jsonEsperado = dadosCadastrarTarefaJson.write(dados).getJson();
+        var jsonRetornado = response.getContentAsString();
+
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString()).isEqualTo(jsonEsperado);
-
+        assertThat(jsonRetornado).isEqualTo(jsonEsperado);
     }
-
-
 }
